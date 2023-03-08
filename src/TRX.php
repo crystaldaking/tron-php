@@ -18,7 +18,8 @@ class TRX implements WalletInterface
     {
         $this->_api = $_api;
 
-        $host = $_api->getClient()->getConfig('base_uri')->getScheme() . '://' . $_api->getClient()->getConfig('base_uri')->getHost();
+        //$host = $_api->getClient()->getConfig('base_uri')->getScheme() . '://' . $_api->getClient()->getConfig('base_uri')->getHost();
+        $host = $_api->getClient()->getConfig('base_uri');
         $fullNode = new HttpProvider($host);
         $solidityNode = new HttpProvider($host);
         $eventServer = new HttpProvider($host);
