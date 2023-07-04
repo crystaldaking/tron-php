@@ -17,12 +17,13 @@ class TRX implements WalletInterface
     public function __construct(Api $_api, array $config = [])
     {
         $this->_api = $_api;
+        $timeout = $config['http_timeout_sec'] ?? 30000;
 
         //$host = $_api->getClient()->getConfig('base_uri')->getScheme() . '://' . $_api->getClient()->getConfig('base_uri')->getHost();
         $host = $_api->getClient()->getConfig('base_uri');
-        $fullNode = new HttpProvider($host);
-        $solidityNode = new HttpProvider($host);
-        $eventServer = new HttpProvider($host);
+        $fullNode = new HttpProvider($host, $timeout);
+        $solidityNode = new HttpProvider($host, $timeout);
+        $eventServer = new HttpProvider($host, $timeout);
         try {
             $this->tron = new Tron($fullNode, $solidityNode, $eventServer);
         } catch (TronException $e) {
